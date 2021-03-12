@@ -1,4 +1,4 @@
-const eq = "1 * X^0 + 2 * X^1 + 5 * X^2 = 0";
+const eq = "5X^2 + 2X + 1 = 0 ";
 
 const splitByEqual = async (equation) => {
   return await equation.replace(/ /g, "").replace(/-/g, "+-").split("=");
@@ -10,8 +10,30 @@ const getNumber = (e, sign) => {
     exp: null,
     sign: null,
   };
-  ne.number = parseFloat(e);
+  let n = parseFloat(e);
+  /* Bonus Un coefficient absent ("X^6") est considéré comme valant 1.  */
+  if (isNaN(n) && e[0] == "-") {
+    ne.number = -1;
+  } else if (isNaN(n)) {
+    ne.number = 1;
+  }
+  if (!isNaN(n)) {
+    ne.number = n;
+  }
+
   let el = e.split("^");
+  /** Un X seul est considéré comme de coefficient 1 et de puissance 1. */
+  if (el[0] == "X" && el.length == 1) {
+    el.push(1);
+  }
+
+  /*Un coefficient seul ("4") est considéré comme étant en facteur de X^0.*/
+  if (isNaN(el[0]) && !el[1]) {
+    el.push(1);
+  }
+  if (!isNaN(el[0]) && !el[1]) {
+    el.push(0);
+  }
   ne.exp = el[1];
   ne.sign = sign;
 
@@ -24,8 +46,10 @@ const getNumberaExp = (e, s) => {
   let result = [];
 
   e.map((element) => {
-    el = getNumber(element, sign);
-    result.push(el);
+    if (element) {
+      el = getNumber(element, sign);
+      result.push(el);
+    }
   });
   return result;
 };
