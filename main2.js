@@ -1,3 +1,4 @@
+const sqrtOf = require("./sr.js");
 const eq = "5X^2 + 2X + 1 = 0 ";
 
 const splitByEqual = async (equation) => {
@@ -170,7 +171,7 @@ const quadraticEquation = (e) => {
   });
   console.log(`Coefficients are: a = ${a} , b = ${b} , c = ${c} `);
   console.log(`Discriminant = b^2 − 4ac`);
-  console.log("Quadratic Formula: X =  (−b ± √|Discriminant|) / 2a");
+  console.log("Quadratic Formula: X =  (−b ± √Discriminant) / 2a");
   let d = b * b - 4 * a * c;
   if (d > 0) {
     console.log(
@@ -178,7 +179,7 @@ const quadraticEquation = (e) => {
     );
     console.log(`Discriminant = ${d}`);
     console.log(`Put in a, b and c:	X = (${b * -1} ± √|${d}|) / 2 * ${a}`);
-    d = Math.sqrt(d);
+    d = sqrtOf(d);
     console.log(`	X = (${b * -1} ± ${d}) /  ${a * 2}`);
     console.log(
       `	X = (${b * -1 - d}) /  ${a * 2} or X = (${b * -1 + d}) /  ${a * 2}`
@@ -191,12 +192,10 @@ const quadraticEquation = (e) => {
       `the Discriminant is nigative: b^2 − 4ac = ${b}^2 - 4 * ${a} * ${c}`
     );
     console.log(`Discriminant = ${d}`);
-    console.log(`Put in a, b and c:	X = (${b * -1} ± √|${d}|) / 2 * ${a}`);
-    console.log(`So X = (${b * -1} ± ${Math.sqrt(d * -1)}i) / ${2 * a}`);
+    console.log(`Put in a, b and c:	X = (${b * -1} ± √${d}) / 2 * ${a}`);
+    console.log(`So X = (${b * -1} ± ${sqrtOf(d * -1)}i) / ${2 * a}`);
     console.log("Where 'i' is the imaginary number √−1 ");
-    console.log(
-      `So X = ${(b * -1) / (2 * a)} ± ${Math.sqrt(d * -1) / (2 * a)}i `
-    );
+    console.log(`So X = ${(b * -1) / (2 * a)} ± ${sqrtOf(d * -1) / (2 * a)}i `);
   }
 };
 
@@ -246,3 +245,5 @@ const main = () => {
   }
 };
 main();
+
+/* next task sqrt() function */
