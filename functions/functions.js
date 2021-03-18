@@ -1,7 +1,5 @@
 const sqrtOf = require("./sr.js");
 
-const eq = "5X^2 + 2X + 1 = 0 ";
-
 const splitByEqual = async (equation) => {
   return await equation.replace(/ /g, "").replace(/-/g, "+-").split("=");
 };
@@ -96,6 +94,14 @@ const reduce = (e) => {
     }
     i++;
   }
+  i = 0;
+  while (i < e.length) {
+    if (e[i].number == "0") {
+      e.splice(i, 1);
+      i -= 1;
+    }
+    i++;
+  }
 
   return e;
 };
@@ -156,7 +162,6 @@ const quadraticEquation = (e) => {
   let a = 0;
   let b = 0;
   let c = 0;
-  // console.log(e);
   e.map((el) => {
     if (el.exp == 2) {
       a = el.number;
@@ -201,7 +206,20 @@ const quadraticEquation = (e) => {
 };
 
 const linearEquation = (e) => {
-  console.log("linearEquation");
+  let b = e[0].number;
+  if (e.length > 1) {
+    let a = e[1].number;
+  }
+  console.log("a * X + b = 0");
+  console.log("a * X = -b");
+  console.log("X = - b/a");
+  console.log("Let change a and b with there values");
+  if (a != 0) {
+    console.log(`X = - (${b} / ${a})`);
+    console.log("X = " + -b / a);
+  } else {
+    console.log("doesn't have a soulution");
+  }
 };
 
 const resolveAll = (e) => {
@@ -220,34 +238,17 @@ const resolveAll = (e) => {
   }
 };
 
-const main = () => {
-  try {
-    splitByEqual(eq)
-      .then((result) => {
-        let left = le({ a: result[0], sign: 1 });
-        let right = le({ a: result[1], sign: -1 });
-        return left.concat(right);
-      })
-      .then((result) => {
-        return symplify(result);
-      })
-      .then((result) => {
-        return reduce(result);
-      })
-      .then((result) => {
-        return sort(result);
-      })
-      .then((result) => {
-        rewrit(result);
-        return result;
-      })
-      .then((result) => {
-        resolveAll(result);
-      });
-  } catch (err) {
-    console.log(err);
-  }
+module.exports = {
+  splitByEqual,
+  getNumber,
+  getNumberaExp,
+  le,
+  symplify,
+  reduce,
+  sort,
+  rewrit,
+  checkDegree,
+  quadraticEquation,
+  linearEquation,
+  resolveAll,
 };
-main();
-
-/* next task sqrt() function */
