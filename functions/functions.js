@@ -1,4 +1,4 @@
-const sqrtOf = require("./sr.js");
+const sqrtOf = require("./sqrt.js");
 
 const splitByEqual = async (equation) => {
   return await equation.replace(/ /g, "").replace(/-/g, "+-").split("=");
@@ -63,7 +63,7 @@ const symplifyElement = (e) => {
   let n = { number: null, exp: null };
 
   n.number = e.number * e.sign;
-  n.exp = e.exp;
+  n.exp = e.exp ? e.exp : 0;
   return n;
 };
 
@@ -80,7 +80,6 @@ const symplify = (e) => {
 const reduce = (e) => {
   let i = 0;
   let j = 0;
-
   while (i < e.length) {
     j = i + 1;
     while (j < e.length) {
@@ -102,11 +101,15 @@ const reduce = (e) => {
     }
     i++;
   }
-
   return e;
 };
 
 const sort = (e) => {
+  if (e.length == 0) {
+    console.log("this is meeeee");
+    e.push([{ number: 0, exp: 0 }]);
+    return e;
+  }
   let i = 0;
   let j = 0;
   let n = {};
@@ -227,7 +230,9 @@ const linearEquation = (e) => {
 
 const resolveAll = (e) => {
   const degree = checkDegree(e);
-  console.log(`Polynomial degree: ${degree}`);
+  if (degree) {
+    console.log(`Polynomial degree: ${degree}`);
+  }
   if (degree > 2) {
     console.log(
       "The polynomial degree is strictly greater than 2, I can't solve."
@@ -237,7 +242,13 @@ const resolveAll = (e) => {
   } else if (degree == 1) {
     linearEquation(e);
   } else {
-    console.log("else");
+    if (e[0].number == undefined) {
+      console.log("0 = 0");
+      console.log(" each real number is a solution");
+    } else {
+      console.log(`${e[0].number} = 0`);
+      console.log("Ther is no soulution");
+    }
   }
 };
 

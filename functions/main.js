@@ -1,4 +1,4 @@
-const eq = "0 + 4 * X + X^2= X^2";
+const eq = "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0";
 const fun = require("./functions");
 const main = () => {
   try {
@@ -19,7 +19,9 @@ const main = () => {
         return fun.sort(result);
       })
       .then((result) => {
-        fun.rewrit(result);
+        if (result.length > 1) {
+          fun.rewrit(result);
+        }
         return result;
       })
       .then((result) => {
