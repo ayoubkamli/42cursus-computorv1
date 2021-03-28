@@ -1,0 +1,12 @@
+{
+  "name": "computor",
+  "version": "1.0.0",
+  "description": "Computor v1 42 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "akamli",
+  "license": "ISC"
+}
